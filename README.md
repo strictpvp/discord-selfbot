@@ -13,3 +13,4 @@ python main.py
 ```
 
 ## ScreenShot
+<img src="https://raw.githubusercontent.com/carrot0322/discord-selfbot/main/screenshot.png" width="90%" />
