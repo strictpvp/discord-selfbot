@@ -1,5 +1,6 @@
 import time
 import os
+import random
 
 try:
     import discord
@@ -53,6 +54,17 @@ class MyClient(discord.Client):
             for i in range(0, int(arg[1])):
                 time.sleep(1)
                 await count.edit(content=str((i - int(arg[1]) + 1) * -1))
+                
+        if message.content.startswith('-rp') or message.content.startswith('-randomping'):
+            message.delete()
+            arg = message.content.split(' ')
+            members = await message.guild.fetch_members(message.channel, cache=False, force_scraping=False, delay=0)
+            string = ''
+            for i in range(0, int(arg[1])):
+                string = string + '<@' + str(members[random.randint(0, len(members) - 1)].id) + '> '
+                
+            await message.channel.send(string)
+            Write.Print(f"[Bot] Random Ping Sent: {string}\n", Colors.red_to_blue, interval=0.01)
         
         if message.content.startswith("-del"):
             arg = message.content.split(' ')
