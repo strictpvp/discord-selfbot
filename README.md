@@ -5,8 +5,9 @@
 
 ## How2Run
 
-Install Python and Run this command
-Didn't need manual pip install
+Install Python and Run this command.
+
+Didn't need manual pip install.😎
 
 ```sh
 python main.py
