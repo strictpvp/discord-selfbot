@@ -87,7 +87,6 @@ class MyClient(discord.Client):
                 string = string + " " + arg[i]
             
             if arg[1].isdigit():
-                message.channel.purge(limit=1)
                 Write.Print(f'[Bot] spam {int(arg[1])} message: {string}\n', Colors.red_to_blue, interval=0.01)
                 for i in range(int(arg[1])):
                     await message.channel.send(string)
@@ -117,7 +116,33 @@ class MyClient(discord.Client):
             Write.Print(f'[Bot] Server Info Sent: {guild.name}({sid}) msg: {message.guild.name}({message.guild.id})\n', Colors.red_to_blue, interval=0.01)
             
         if message.content.startswith("-invite"):
-            awaitmessage.channel.send()
+            arg = message.content.split(' ')
+            
+            if len(arg) > 2:
+                if arg[1].isdigit():
+                    age = int(arg[1])
+                else:
+                    await message.channel.send("NaN")
+            else:
+                arg = 0
+                
+            if len(arg) == 3:
+                if arg[2].isdigit():
+                    cid: int = arg[2]
+                else:
+                    await message.channel.send("NaN")
+            else:
+                cid: int = message.guild.id
+                
+            channel = self.get_channel(int(cid))
+            
+            invite = await channel.create_invite(
+                max_age=age,
+                max_uses=0,
+                validate=0
+            )
+            await message.channel.send(invite)
+            Write.Print(f'new invite created: {invite} - server: {channel.guild.name}({channel.guild.id})\n', Colors.red_to_blue, interval=0.01)
 
 client = MyClient()
 load_dotenv()
