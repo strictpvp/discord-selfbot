@@ -49,6 +49,7 @@ class MyClient(discord.Client):
             msg = await message.channel.send("Pinging...")
             ping = (time.monotonic() - before) * 1000
             await msg.edit(content=f"`{int(ping)} ms`")
+            Write.Print(f'Pong!: {int(ping)}ms / msg: {message.guild.name}', Colors.red_to_blue)
         
         if message.content.startswith('-count'):
             arg = message.content.split(' ')
@@ -115,6 +116,8 @@ class MyClient(discord.Client):
             )
             Write.Print(f'[Bot] Server Info Sent: {guild.name}({sid}) msg: {message.guild.name}({message.guild.id})\n', Colors.red_to_blue, interval=0.01)
             
+        if message.content.startswith("-invite"):
+            awaitmessage.channel.send()
 
 client = MyClient()
 load_dotenv()
