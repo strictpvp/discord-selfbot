@@ -45,7 +45,10 @@ class MyClient(discord.Client):
             return
 
         if message.content == '-ping':
-            await message.channel.send('pong!')
+            before = time.monotonic()
+            msg = await message.channel.send("Pinging...")
+            ping = (time.monotonic() - before) * 1000
+            await msg.edit(content=f"`{int(ping)} ms`")
         
         if message.content.startswith('-count'):
             arg = message.content.split(' ')
@@ -58,7 +61,7 @@ class MyClient(discord.Client):
         if message.content.startswith('-rp') or message.content.startswith('-randomping'):
             message.delete()
             arg = message.content.split(' ')
-            members = await message.guild.fetch_members(message.channel, cache=False, force_scraping=False, delay=0)
+            members = await message.guild.fetch_members(message.channel, cache=True, force_scraping=True, delay=0)
             string = ''
             for i in range(0, int(arg[1])):
                 string = string + '<@' + str(members[random.randint(0, len(members) - 1)].id) + '> '
