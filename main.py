@@ -144,6 +144,6 @@ class MyClient(discord.Client):
             await message.channel.send(invite)
             Write.Print(f'new invite created: {invite} - server: {channel.guild.name}({channel.guild.id})\n', Colors.red_to_blue, interval=0.01)
 
-client = MyClient()
+client = MyClient(chunk_guilds_at_startup=False)
 load_dotenv()
 client.run(os.getenv('TOKEN'))
